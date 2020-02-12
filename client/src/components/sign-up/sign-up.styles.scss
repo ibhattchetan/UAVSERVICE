@@ -1,0 +1,39 @@
+.sign-up {
+  width: 570px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  .title {
+    margin: 10px 0;
+  }
+  .buttons {
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sign-up {
+    width: 100%;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+.sub-input-div {
+  display: flex;
+  justify-content: space-between;
+  & .group {
+    width: 250px;
+  }
+}
+
+div .isError {
+  color: red;
+  font-size: 12px;
+  margin-top: -40px;
+}
+
+div .isError :last-child {
+  margin-bottom: 10px;
+}
