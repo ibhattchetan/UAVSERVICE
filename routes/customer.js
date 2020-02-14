@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Customer, User } = require("../database");
 const passport = require("passport");
+const validateCustomerProfileUpdate = require("../validations/customer");
 
 // @route   POST /api/customer/update-customer
 // @desc    Update Customer Profile
@@ -11,6 +12,13 @@ router.post(
     session: false
   }),
   (req, res) => {
+    const { errors, isValid } = validateCustomerProfileUpdate(req.body);
+
+    // Check Validations
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
     const customerData = new Customer({
       currentCity: req.body.currentCity,
       user_id: req.user.id,
@@ -27,10 +35,19 @@ router.post(
         if (!item) {
           customerData
             .save()
-            .then(saved => res.status(200).json(saved))
+            .then(saved => {
+              if (!saved) {
+                return res.status(400).json(errors);
+              } else {
+                res.status(200).json(saved);
+              }
+            })
             .catch(err => console.log(err));
         } else {
           item.servicePrefrence = req.body.servicePrefrence.split(",");
+          if (item.servicePrefrence == "") {
+            item.servicePrefrence = null;
+          }
           Customer.update(
             {
               currentCity: req.body.currentCity,
@@ -40,8 +57,13 @@ router.post(
             },
             { where: { user_id: req.user.id }, returning: true }
           )
-
-            .then(updated => res.status(200).json(updated))
+            .then(updated => {
+              if (!updated) {
+                return res.status(400).json(errors);
+              } else {
+                res.status(200).json(updated);
+              }
+            })
             .catch(err => console.log(err));
         }
       })

@@ -38,7 +38,6 @@ module.exports = (sequelize, Sequelize) => {
           const checkArrayData = field => {
             if (Array.isArray(field) === false) {
               field = field.split(",");
-              console.log(field);
             }
             return field;
           };

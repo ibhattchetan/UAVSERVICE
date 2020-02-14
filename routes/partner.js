@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Partner, User } = require("../database");
 const passport = require("passport");
+const validatePartnerProfileUpdate = require("../validations/partner");
 
 // @route   POST /api/partner/update-partner
 // @desc    Update Partner Profile
@@ -11,6 +12,13 @@ router.post(
     session: false
   }),
   (req, res) => {
+    const { errors, isValid } = validatePartnerProfileUpdate(req.body);
+
+    // Check Validations
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
     const partnerData = new Partner({
       jobsComplited: req.body.jobsComplited,
       user_id: req.user.id,
@@ -28,7 +36,13 @@ router.post(
         if (!item) {
           partnerData
             .save()
-            .then(saved => res.status(200).json(saved))
+            .then(saved => {
+              if (!saved) {
+                return res.status(400).json(errors);
+              } else {
+                res.status(200).json(saved);
+              }
+            })
             .catch(err => console.log(err));
         } else {
           item.services = req.body.services.split(",");
@@ -44,8 +58,13 @@ router.post(
             },
             { where: { user_id: req.user.id }, returning: true }
           )
-
-            .then(updated => res.status(200).json(updated))
+            .then(updated => {
+              if (!updated) {
+                return res.status(400).json(errors);
+              } else {
+                res.status(200).json(updated);
+              }
+            })
             .catch(err => console.log(err));
         }
       })
