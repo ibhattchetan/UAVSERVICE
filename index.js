@@ -32,6 +32,8 @@ require("./config/passport")(passport);
 
 const users = require("./routes/users");
 const subscribe = require("./routes/subscribe");
+const partner = require("./routes/partner");
+const customer = require("./routes/customer");
 
 //@route   GET /test
 //@desc    Test Route
@@ -45,5 +47,7 @@ app.get("/test", (req, res) => {
 
 app.use("/api/users", users);
 app.use("/api/subscribe", subscribe);
+app.use("/api/partner", partner);
+app.use("/api/customer", customer);
 
 app.listen(PORT, () => console.log(`Application Running on port ${PORT}`));

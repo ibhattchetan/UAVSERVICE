@@ -12,9 +12,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     accountType: "",
-    phoneNumber: "",
     name: "",
-    currentLocation: "",
     errors: {}
   });
 
@@ -30,9 +28,7 @@ const SignUp = () => {
       email: user.email,
       accountType: user.accountType,
       password: user.password,
-      phoneNumber: user.phoneNumber,
-      confirmPassword: user.confirmPassword,
-      currentLocation: user.currentLocation
+      confirmPassword: user.confirmPassword
     };
     axios
       .post("/api/users/register", newUser)
@@ -61,20 +57,6 @@ const SignUp = () => {
           />
           {user.errors.name && (
             <div className="isError"> {user.errors.name} </div>
-          )}
-
-          <FormInput
-            handleChange={handleChange}
-            name="phoneNumber"
-            type="number"
-            className={classnames("form-input", {
-              "form-input-invalid": user.errors.phoneNumber
-            })}
-            value={user.phoneNumber}
-            label="Mobile"
-          />
-          {user.errors.phoneNumber && (
-            <div className="isError"> {user.errors.phoneNumber} </div>
           )}
         </div>
         <div>
@@ -116,19 +98,6 @@ const SignUp = () => {
           />
           {user.errors.email && (
             <div className="isError"> {user.errors.email} </div>
-          )}
-          <FormInput
-            handleChange={handleChange}
-            name="currentLocation"
-            className={classnames("form-input", {
-              "form-input-invalid": user.errors.currentLocation
-            })}
-            type="text"
-            value={user.currentLocation}
-            label="Current Location"
-          />
-          {user.errors.currentLocation && (
-            <div className="isError"> {user.errors.currentLocation} </div>
           )}
         </div>
 
