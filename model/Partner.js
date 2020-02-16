@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.ARRAY(Sequelize.NUMERIC(10, 2)),
         allowNull: false
       },
-      jobsComplited: {
+      jobsCompleted: {
         type: Sequelize.INTEGER,
         allowNull: true
       },
