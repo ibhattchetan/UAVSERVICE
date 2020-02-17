@@ -4,7 +4,7 @@ const SubscribeModel = require("./model/Subscribe");
 const PartnerProfileModel = require("./model/Partner");
 const CustomerProfileModel = require("./model/Customer");
 
-const sequelize = new Sequelize("servicium", "postgres", "9939105936", {
+const sequelize = new Sequelize("servicium", "postgres", "dinesh", {
   host: "localhost",
   dialect: "postgres"
 });

@@ -97,7 +97,7 @@ router.post("/login", (req, res) => {
             payload,
             secretOrKey,
             {
-              expiresIn: 86400
+              expiresIn: 3600
             },
             (err, token) => {
               if (err) throw err;
