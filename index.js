@@ -34,7 +34,7 @@ const users = require("./routes/users");
 const subscribe = require("./routes/subscribe");
 const partner = require("./routes/partner");
 const customer = require("./routes/customer");
-
+const review = require("./routes/review");
 //@route   GET /test
 //@desc    Test Route
 //@access  Public
@@ -49,5 +49,6 @@ app.use("/api/users", users);
 app.use("/api/subscribe", subscribe);
 app.use("/api/partner", partner);
 app.use("/api/customer", customer);
+app.use("/api/review", review);
 
 app.listen(PORT, () => console.log(`Application Running on port ${PORT}`));

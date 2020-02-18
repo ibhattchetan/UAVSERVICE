@@ -3,6 +3,7 @@ const UserModel = require("./model/User");
 const SubscribeModel = require("./model/Subscribe");
 const PartnerProfileModel = require("./model/Partner");
 const CustomerProfileModel = require("./model/Customer");
+const ReviewModel = require("./model/Review");
 
 const sequelize = new Sequelize("servicium", "postgres", "dinesh", {
   host: "localhost",
@@ -21,10 +22,12 @@ let User = UserModel(sequelize, Sequelize);
 let Subscribe = SubscribeModel(sequelize, Sequelize);
 let Partner = PartnerProfileModel(sequelize, Sequelize);
 let Customer = CustomerProfileModel(sequelize, Sequelize);
+let Review = ReviewModel(sequelize, Sequelize);
 
 module.exports = {
   User,
   Subscribe,
   Partner,
-  Customer
+  Customer,
+  Review
 };
