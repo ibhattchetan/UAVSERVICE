@@ -20,7 +20,7 @@ router.post(
     }
 
     const partnerData = new Partner({
-      jobsComplited: req.body.jobsComplited,
+      jobsCompleted: req.body.jobsCompleted,
       user_id: req.user.id,
       services: req.body.services,
       ratePerHour: req.body.ratePerHour,
@@ -50,7 +50,7 @@ router.post(
           item.currentLocation = req.body.currentLocation.split(",");
           Partner.update(
             {
-              jobsComplited: req.body.jobsComplited,
+              jobsCompleted: req.body.jobsCompleted,
               services: item.services,
               ratePerHour: item.ratePerHour,
               currentLocation: item.currentLocation,

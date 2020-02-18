@@ -2,7 +2,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import setAuthToken from "../../utils/setAuthToken";
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, SET_CURRENT_CITY } from "./types";
 
 // Register User
 
@@ -36,13 +36,12 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // decode jwt token
       const decoded = jwt_decode(token);
-      console.log(decoded.accountType);
       // set current user
       dispatch(setCurrentUser(decoded));
       if (decoded.accountType === "Customer") {
-            window.location.replace("/customer/profile")
+        window.location.replace("/customer/profile");
       } else if (decoded.accountType === "Partner") {
-          window.location.replace("/partner/profile")
+        window.location.replace("/partner/profile");
       }
     })
     .catch(err =>
@@ -71,5 +70,24 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // set current user {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
-  window.location.replace("/login")
+  window.location.replace("/login");
+};
+
+export const getUserCity = () => dispatch => {
+  axios
+    .get("/api/users/current-city")
+    .then(result => {
+      dispatch(setCurrentCity(result.data.currentLocation));
+    })
+    .catch(err => console.log(err));
+};
+
+export const setCurrentCity = currCity => {
+  if (Array.isArray(currCity) === false) {
+    currCity = [currCity];
+  }
+  return {
+    type: SET_CURRENT_CITY,
+    payload: currCity
+  };
 };

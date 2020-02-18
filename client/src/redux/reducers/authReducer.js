@@ -1,9 +1,10 @@
 import isEmpty from "../../validation/is-Empty";
-import { SET_CURRENT_USER } from "../actions/types";
+import { SET_CURRENT_USER, SET_CURRENT_CITY } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  currentLocation: ""
 };
 
 const authReducer = (state = initialState, action) => {
@@ -13,6 +14,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
+      };
+    case SET_CURRENT_CITY:
+      return {
+        ...state,
+        currentLocation: action.payload[0]
       };
     default:
       return state;
