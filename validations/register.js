@@ -11,11 +11,6 @@ module.exports = validateRegisterInput = data => {
   data.confirmPassword = !isEmpty(data.confirmPassword)
     ? data.confirmPassword
     : "";
-  data.phoneNumber = !isEmpty(data.phoneNumber) ? data.phoneNumber : "";
-  data.currentLocation = !isEmpty(data.currentLocation)
-    ? data.currentLocation
-    : "";
-
   if (
     !Validator.isLength(data.name, {
       min: 2,
@@ -59,17 +54,17 @@ module.exports = validateRegisterInput = data => {
   if (Validator.isEmpty(data.email)) {
     errors.email = "Email is required";
   }
-  if (!Validator.isEmpty(data.phoneNumber)) {
-    if (
-      !Validator.isMobilePhone(data.phoneNumber) ||
-      !Validator.isLength(data.phoneNumber, {
-        min: 10,
-        max: 10
-      })
-    ) {
-      errors.phoneNumber = "Invalid Phone number";
-    }
-  }
+  // if (!Validator.isEmpty(data.phoneNumber)) {
+  //   if (
+  //     !Validator.isMobilePhone(data.phoneNumber) ||
+  //     !Validator.isLength(data.phoneNumber, {
+  //       min: 10,
+  //       max: 10
+  //     })
+  //   ) {
+  //     errors.phoneNumber = "Invalid Phone number";
+  //   }
+  // }
 
   return {
     errors,

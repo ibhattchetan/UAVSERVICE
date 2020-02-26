@@ -23,6 +23,10 @@ import Painting from "./pages/categories/painting/Painting.component";
 import About from "./pages/company/about/About.component";
 import Contact from "./pages/company/contact/Contact.component";
 import Privacy from "./pages/company/privacy/Privacy.component";
+import CustomerProfileUpdate from "./pages/customer/profile-udpate/profile-update.component";
+import PartnerProfileUpdate from "./pages/partner/profile-update/profile-update.component";
+import CustomerDashboard from "./pages/customer/dashboard/dashboard.component";
+import PartnerDashboard from "./pages/partner/dashboard/dashboard.component";
 
 // check for token
 if (localStorage.jwtToken) {
@@ -43,7 +47,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route exact path="/login" component={Signin} />
-            <Route exact path="/signin" component={SignUp} />
+            <Route exact path="/signup" component={SignUp} />
             <Route exact path="/home-cleaning" component={HomeClaning} />
             <Route exact path="/pest-control" component={PestControl} />
             <Route exact path="/appliances" component={Appliances} />
@@ -54,6 +58,15 @@ function App() {
             <Route exact path="/about" component={About} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/privacy" component={Privacy} />
+            {/* Customer Profile update page */}
+            <Route exact path="/customer/profile" component={CustomerProfileUpdate} />
+            {/* Partner Profile update page */}
+            <Route exact path="/partner/profile" component={PartnerProfileUpdate} />
+            {/* User Dashboard page */}
+            <Route exact path="/customer/dashboard" component={CustomerDashboard} />
+            {/* Partner Dashboard page */}
+            <Route exact path="/partner/dashboard" component={PartnerDashboard} />
+
           </Switch>
           <Footer />
         </div>

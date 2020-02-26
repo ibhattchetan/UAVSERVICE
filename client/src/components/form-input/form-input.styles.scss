@@ -1,47 +1,51 @@
-$sub-color: grey;
+$sub-color: rgb(173, 172, 172);
 $main-color: black;
 
 @mixin shrinkLabel {
-  top: -14px;
-  font-size: 12px;
+  top: -18px;
+  font-size: 15px;
   color: $main-color;
 }
 
 .group {
   position: relative;
-  margin: 45px 0;
+  margin: 37px 0;
 
   .form-input {
     background: none;
-    background-color: #f5f5f5;
-    color: $sub-color;
+    background-color: white;
+    color: rgb(90, 88, 88);
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: 5px 10px 5px 0;
     display: block;
     width: 100%;
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid $sub-color;
-    margin: 25px 0;
+    border: 1px solid $sub-color;
+    border-radius: 6px;
+    // border-bottom: 1px solid $sub-color;
+    margin: 10px 0;
+
 
     &:focus {
       outline: none;
     }
 
-    &:focus ~ .form-input-label {
+    &:focus~.form-input-label {
       @include shrinkLabel();
     }
-    &:focus ~ .required-field {
+
+    &:focus~.required-field {
       top: -14px;
     }
-  }
-  .form-input-invalid {
-    border-bottom: 1px solid red;
   }
 
   input[type="password"] {
     letter-spacing: 0.3em;
   }
+
+   input[type="radio"] {
+     position: relative;
+     top: -12px;
+   }
 
   .form-input-label {
     color: $sub-color;
@@ -59,10 +63,14 @@ $main-color: black;
   }
 }
 
-.required-field {
+
+div .isError {
+  color: red;
   font-size: 12px;
-  color: brown;
-  top: 40px;
-  padding-top: 30px;
-  margin-bottom: -30px;
+  margin-top: -40px;
+  margin-bottom: 0px;
+}
+
+div .isError :last-child {
+  margin-bottom: 10px;
 }

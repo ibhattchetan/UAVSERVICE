@@ -36,8 +36,14 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // decode jwt token
       const decoded = jwt_decode(token);
+      console.log(decoded.accountType);
       // set current user
       dispatch(setCurrentUser(decoded));
+      if (decoded.accountType === "Customer") {
+            window.location.replace("/customer/profile")
+      } else if (decoded.accountType === "Partner") {
+          window.location.replace("/partner/profile")
+      }
     })
     .catch(err =>
       dispatch({
@@ -65,4 +71,5 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // set current user {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+  window.location.replace("/login")
 };

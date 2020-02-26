@@ -48,14 +48,14 @@ const Header = props => {
       <Link className="option" to="/login">
         Login
       </Link>
-      <Link className="option" to="/signin">
+      <Link className="option" to="/signup">
         Sign Up
       </Link>
     </div>
   );
 
   return (
-    <div>
+    <div className="header">
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">
           <img style={{ height: "35px" }} src={logo} alt="servicium-logo" />
