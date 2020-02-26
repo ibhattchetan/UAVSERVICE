@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Partner, User } = require("../database");
+const { Partner, User, Review } = require("../database");
 const passport = require("passport");
 const validatePartnerProfileUpdate = require("../validations/partner");
 
@@ -85,6 +85,13 @@ router.get("/", (req, res) => {
       }
     ]
   })
+    .then(partner => res.status(200).json(partner))
+    .catch(err => console.log(err));
+});
+router.get("/:partnerId", (req, res) => {
+  const partnerId = req.params.partnerId;
+  Partner.belongsTo(User, { foreignKey: "user_id" });
+  Partner.findOne({ include: [User], where: { user_id: partnerId } })
     .then(partner => res.status(200).json(partner))
     .catch(err => console.log(err));
 });

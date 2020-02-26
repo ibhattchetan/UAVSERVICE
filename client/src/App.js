@@ -27,6 +27,7 @@ import CustomerProfileUpdate from "./pages/customer/profile-udpate/profile-updat
 import PartnerProfileUpdate from "./pages/partner/profile-update/profile-update.component";
 import CustomerDashboard from "./pages/customer/dashboard/dashboard.component";
 import PartnerDashboard from "./pages/partner/dashboard/dashboard.component";
+import PartnerDisplay from "./components/partnerCard/PartnerCard.component";
 
 // check for token
 if (localStorage.jwtToken) {
@@ -59,14 +60,34 @@ function App() {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/privacy" component={Privacy} />
             {/* Customer Profile update page */}
-            <Route exact path="/customer/profile" component={CustomerProfileUpdate} />
+            <Route
+              exact
+              path="/customer/profile"
+              component={CustomerProfileUpdate}
+            />
             {/* Partner Profile update page */}
-            <Route exact path="/partner/profile" component={PartnerProfileUpdate} />
+            <Route
+              exact
+              path="/partner/profile"
+              component={PartnerProfileUpdate}
+            />
             {/* User Dashboard page */}
-            <Route exact path="/customer/dashboard" component={CustomerDashboard} />
+            <Route
+              exact
+              path="/customer/dashboard"
+              component={CustomerDashboard}
+            />
             {/* Partner Dashboard page */}
-            <Route exact path="/partner/dashboard" component={PartnerDashboard} />
-
+            <Route
+              exact
+              path="/partner/dashboard"
+              component={PartnerDashboard}
+            />
+            <Route
+              exact
+              path="/partner/:partnerId"
+              component={PartnerDisplay}
+            />
           </Switch>
           <Footer />
         </div>

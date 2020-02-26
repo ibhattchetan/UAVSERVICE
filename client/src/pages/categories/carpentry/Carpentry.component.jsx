@@ -1,9 +1,10 @@
 import React from "react";
+import AllPartner from "../../../components/partnerCard/AllPartner.component";
 
 function Carpentry() {
   return (
     <div>
-      <div>Carpentry</div>
+      <AllPartner />
     </div>
   );
 }
