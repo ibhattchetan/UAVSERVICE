@@ -5,7 +5,7 @@ module.exports = validatePartnerProfileUpdate = data => {
   let errors = {};
 
   data.phoneNumber = !isEmpty(data.phoneNumber) ? data.phoneNumber : "";
-  data.jobsComplited = !isEmpty(data.jobsComplited) ? data.jobsComplited : "";
+  data.jobsCompleted = !isEmpty(data.jobsCompleted) ? data.jobsCompleted : "";
   data.services = !isEmpty(data.services) ? data.services : "";
   data.ratePerHour = !isEmpty(data.ratePerHour) ? data.ratePerHour : "";
   data.currentLocation = !isEmpty(data.currentLocation)
@@ -33,8 +33,8 @@ module.exports = validatePartnerProfileUpdate = data => {
   }
 
   // jobComplited Validation
-  if (!Validator.isNumeric(data.jobsComplited)) {
-    errors.jobsComplited = "Job complited must be number";
+  if (!Validator.isNumeric(data.jobsCompleted)) {
+    errors.jobsCompleted = "Job complited must be number";
   }
 
   // services Validation

@@ -2,7 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const { User } = require("../database");
+const { User, Customer, Partner } = require("../database");
 const validateRegisterInput = require("../validations/register");
 const validateLoginInput = require("../validations/login");
 const { secretOrKey } = require("../config/keys");
@@ -129,6 +129,38 @@ router.get(
       email: req.user.email
     };
     res.status(200).json(userData);
+  }
+);
+
+router.get(
+  "/current-city",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  (req, res) => {
+    if (req.user.accountType === "Customer") {
+      Customer.findOne({ where: { user_id: req.user.id } })
+        .then(customerCity => {
+          if (!customerCity) {
+            return res.status(400).json("City Not Found");
+          } else {
+            res.status(200).json({ currentLocation: customerCity.currentCity });
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      Partner.findOne({ where: { user_id: req.user.id } })
+        .then(partnerCity => {
+          if (!partnerCity) {
+            return res.status(400).json("City Not Found");
+          } else {
+            res
+              .status(200)
+              .json({ currentLocation: partnerCity.currentLocation });
+          }
+        })
+        .catch(err => console.log(err));
+    }
   }
 );
 

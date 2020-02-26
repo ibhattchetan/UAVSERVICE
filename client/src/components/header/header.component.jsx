@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import profilePic from "../../assests/profile.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../../assests/Logo.png";
-import { logoutUser } from "../../redux/actions/authActions";
+import { logoutUser, getUserCity } from "../../redux/actions/authActions";
+import SelectCity from "./SelectCityModal";
 import {
   Collapse,
   Navbar,
@@ -24,10 +25,20 @@ const Header = props => {
 
   const dispatch = useDispatch();
   const loggedInUser = useSelector(state => state.auth);
+  // if (loggedInUser.isAuthenticated) {
+  //   dispatch(getUserCity());
+  // }
+
   const onLogoutUser = event => {
     event.preventDefault();
     dispatch(logoutUser());
   };
+
+  useEffect(() => {
+    if (loggedInUser.isAuthenticated) {
+      dispatch(getUserCity());
+    }
+  }, []);
 
   const authLinks = (
     <UncontrolledDropdown inNavbar>
@@ -57,11 +68,12 @@ const Header = props => {
   return (
     <div className="header">
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">
+        <Link to="/">
           <img style={{ height: "35px" }} src={logo} alt="servicium-logo" />
-        </NavbarBrand>
+        </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
+          <SelectCity />
           {/* <Link className="become-partner-link" to="/become-partner">
             <i className="fas fa-users-cog become-partner"></i>
             Become A Partner

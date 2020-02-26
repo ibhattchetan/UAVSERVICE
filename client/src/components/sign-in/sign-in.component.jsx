@@ -46,48 +46,55 @@ const SignIn = props => {
         <img src={Background} alt="login-background" />
       </div>
       <div className="sign-in">
-              <h2 className="title">Login our community!</h2>
-              <span>Don't have an account ? <strong><Link to="/signup">Sign Up</Link></strong></span>
+        <h2 className="title">Login our community!</h2>
+        <span>
+          Don't have an account ?{" "}
+          <strong>
+            <Link to="/signup">Sign Up</Link>
+          </strong>
+        </span>
 
-              <form onSubmit={handleSubmit} noValidate>
-                {/* <div className="required-field">* required field</div> */}
-                <FormInput
-                  handleChange={handleChange}
-                  name="email"
-                  className={classnames("form-input", {
-                    "form-input-invalid": login.errors.email
-                  })}
-                  type="email"
-                  value={login.email}
-                  label="Email*"
-                />
+        <form onSubmit={handleSubmit} noValidate>
+          {/* <div className="required-field">* required field</div> */}
+          <FormInput
+            handleChange={handleChange}
+            name="email"
+            className={classnames("form-input", {
+              "form-input-invalid": login.errors.email
+            })}
+            type="email"
+            value={login.email}
+            label="Email*"
+          />
 
-                {login.errors.email && (
-                  <div className="isError"> {login.errors.email} </div>
-                )}
+          {login.errors.email && (
+            <div className="isError"> {login.errors.email} </div>
+          )}
 
-                <FormInput
-                  handleChange={handleChange}
-                  name="password"
-                  type="password"
-                  className={classnames("form-input", {
-                    "form-input-invalid": login.errors.password
-                  })}
-                  value={login.password}
-                  label="Password*"
-                />
+          <FormInput
+            handleChange={handleChange}
+            name="password"
+            type="password"
+            className={classnames("form-input", {
+              "form-input-invalid": login.errors.password
+            })}
+            value={login.password}
+            label="Password*"
+          />
 
-                {login.errors.password && (
-                  <div className="isError"> {login.errors.password} </div>
-                )}
+          {login.errors.password && (
+            <div className="isError"> {login.errors.password} </div>
+          )}
 
-                <div className="buttons">
-                  <CustomButton type="submit">Sign in</CustomButton>
-                </div>
-              </form>
-              <span id="terms">By joining, you agree to our <strong>Terms</strong> and <strong>Privacy Policy</strong></span>
+          <div className="buttons">
+            <CustomButton type="submit">Sign in</CustomButton>
+          </div>
+        </form>
+        <span id="terms">
+          By joining, you agree to our <strong>Terms</strong> and{" "}
+          <strong>Privacy Policy</strong>
+        </span>
       </div>
-
     </div>
   );
 };
