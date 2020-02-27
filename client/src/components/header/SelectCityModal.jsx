@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import "./selectCity.styles.scss";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentCity } from "../../redux/actions/authActions";
 
 function SelectCityModal() {
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
 
   const loggedInUser = useSelector(state => state.auth);
-  let city;
-  if (loggedInUser.isAuthenticated) {
-    city = loggedInUser.currentLocation;
-  } else {
-    city = "Bangalore";
-  }
+  let city = loggedInUser.currentLocation;
+  const dispatch = useDispatch();
+
+  const selectCityAndDispatch = event => {
+    dispatch(setCurrentCity(event.currentTarget.textContent));
+    toggleModal();
+  };
 
   return (
     <div>
@@ -28,17 +30,39 @@ function SelectCityModal() {
         <ModalBody>
           <div>
             <div className="select-city-ul">
-              <div className="city-name">Jodhpur</div>
-              <div className="city-name">Jaipur</div>
-              <div className="city-name">Bangalore</div>
-              <div className="city-name">Pune</div>
-              <div className="city-name">Mumbai</div>
-              <div className="city-name">Delhi</div>
-              <div className="city-name">Haydrabad</div>
-              <div className="city-name">Chandigarh</div>
-              <div className="city-name">Ahemdabad</div>
-              <div className="city-name">Panji</div>
-              <div className="city-name">Chennai</div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Jodhpur
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Jaipur
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Bangalore
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Pune
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Mumbai
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Delhi
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Haydrabad
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Chandigarh
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Ahemdabad
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Panji
+              </div>
+              <div className="city-name" onClick={selectCityAndDispatch}>
+                Chennai
+              </div>
             </div>
           </div>
         </ModalBody>

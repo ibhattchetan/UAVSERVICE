@@ -11,14 +11,14 @@ function PartnerCard(props) {
   let partnerID = props.match.params.partnerId;
   useEffect(() => {
     axios
-      .get("/api/partner/" + partnerID)
+      .get("/api/partner/partner/" + partnerID)
       .then(result => setPartner(result.data))
       .catch(err => console.log(err));
     axios
       .get("/api/review/" + partnerID)
       .then(result => setReviews(result.data))
       .catch(err => console.log(err));
-  }, []);
+  }, [partnerID]);
 
   if (!partner) {
     return <div>Loading User Data...</div>;
@@ -40,13 +40,17 @@ function PartnerCard(props) {
           <div className="col-4 area-expertise">
             <strong>Area of Expertise</strong>
             <br />
-            {partner.services.map(item => {
-              return <span>{item} </span>;
+            {partner.services.map((item, index) => {
+              return (
+                <div key={index}>
+                  <span>{item} </span>
+                </div>
+              );
             })}
             <br />
             <strong>Location : </strong>
-            {partner.currentLocation.map(item => {
-              return <span>{item} </span>;
+            {partner.currentLocation.map((item, index) => {
+              return <span key={index}>{item} </span>;
             })}
           </div>
           <div className="col-2 book-now-btn">
@@ -60,7 +64,7 @@ function PartnerCard(props) {
           <strong>Customer Reviews</strong>
           {reviews.map(item => {
             return (
-              <div className="row reviews">
+              <div className="row reviews" key={item.id}>
                 <div className="col-1">
                   <img className="review-image" src={profileImg} />
                 </div>
