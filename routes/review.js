@@ -49,6 +49,7 @@ router.get("/", (req, res) => {
 router.get("/:partnerId", (req, res) => {
   const partnerId = req.params.partnerId;
   Review.belongsTo(User, { foreignKey: "user_id" });
+
   Review.findAll({ include: [User], where: { partner_id: partnerId } })
     .then(review => res.status(200).json(review))
     .catch(err => console.log(err));
