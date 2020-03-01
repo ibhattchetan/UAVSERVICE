@@ -88,4 +88,21 @@ router.get("/", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.get(
+  "/customer-profile-data",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const customerId = req.user.id;
+    Customer.findOne({ where: { user_id: customerId } })
+      .then(result => {
+        if (!result) {
+          res.status(400).json({ message: "No User for this is" });
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .catch(err => console.log(err));
+  }
+);
+
 module.exports = router;

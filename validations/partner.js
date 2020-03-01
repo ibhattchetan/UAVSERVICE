@@ -5,14 +5,43 @@ module.exports = validatePartnerProfileUpdate = data => {
   let errors = {};
 
   data.phoneNumber = !isEmpty(data.phoneNumber) ? data.phoneNumber : "";
-  data.jobsCompleted = !isEmpty(data.jobsCompleted) ? data.jobsCompleted : "";
-  data.services = !isEmpty(data.services) ? data.services : "";
-  data.ratePerHour = !isEmpty(data.ratePerHour) ? data.ratePerHour : "";
+  data.services = !isEmpty(data.services) ? data.services : [];
+  data.ratePerHour = !isEmpty(data.ratePerHour) ? data.ratePerHour : [];
   data.currentLocation = !isEmpty(data.currentLocation)
     ? data.currentLocation
-    : "";
+    : [];
 
   // phone number Validation
+
+  if (data.currentLocation.length === 0) {
+    errors.currentLocation = "Current City is required";
+  }
+
+  // if (!Validator.isEmpty(data.services)) {
+  //   let input = data.services.split(",");
+  //   console.log("Input Service Types : ", input);
+  //   for (let index = 0; index < input.length; index++) {
+  //     if (
+  //       !Validator.equals(input[index], "Plumbing") &&
+  //       !Validator.equals(input[index], "Carpentry") &&
+  //       !Validator.equals(input[index], "Cleaning") &&
+  //       !Validator.equals(input[index], "Electrical") &&
+  //       !Validator.equals(input[index], "Appliances") &&
+  //       !Validator.equals(input[index], "Painting")
+  //     ) {
+  //       errors.services = "Invalid Service Type";
+  //     }
+  //   }
+  // }
+
+  if (data.currentLocation.length === 0) {
+    errors.currentLocation = "Cities are required";
+  }
+
+  if (data.services.length === 0) {
+    errors.services = "Services are required";
+  }
+
   if (
     !Validator.isMobilePhone(data.phoneNumber) ||
     !Validator.isLength(data.phoneNumber, {
@@ -20,50 +49,10 @@ module.exports = validatePartnerProfileUpdate = data => {
       max: 10
     })
   ) {
-    console.log("invalid Phone number");
     errors.phoneNumber = "Invalid Phone number";
   }
   if (Validator.isEmpty(data.phoneNumber)) {
     errors.phoneNumber = "Phone Number is required";
-  }
-
-  // currentLocation Validation
-  if (Validator.isEmpty(data.currentLocation)) {
-    errors.currentLocation = "Current Location is required";
-  }
-
-  // jobComplited Validation
-  if (!Validator.isNumeric(data.jobsCompleted)) {
-    errors.jobsCompleted = "Job complited must be number";
-  }
-
-  // services Validation
-
-  let servicesInput = data.services.split(",");
-  for (let index = 0; index < servicesInput.length; index++) {
-    if (
-      !Validator.equals(servicesInput[index], "Plumbing") &&
-      !Validator.equals(servicesInput[index], "Carpentry") &&
-      !Validator.equals(servicesInput[index], "Cleaning") &&
-      !Validator.equals(servicesInput[index], "Electrical") &&
-      !Validator.equals(servicesInput[index], "Appliances") &&
-      !Validator.equals(servicesInput[index], "Painting")
-    ) {
-      errors.services = "Invalid Service Type";
-    }
-  }
-  if (Validator.isEmpty(data.services)) {
-    errors.services = "Services required";
-  }
-
-  // rate per hour Validation
-  let rateInput = data.ratePerHour.split(",");
-  console.log(servicesInput.length, rateInput.length);
-  if (servicesInput.length !== rateInput.length) {
-    errors.ratePerHour = "Rate per hour length must be same as services";
-  }
-  if (Validator.isEmpty(data.ratePerHour)) {
-    errors.ratePerHour = "Rate per hour required";
   }
 
   return {

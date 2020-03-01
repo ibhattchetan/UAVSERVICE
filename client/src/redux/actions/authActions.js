@@ -39,9 +39,23 @@ export const loginUser = userData => dispatch => {
       // set current user
       dispatch(setCurrentUser(decoded));
       if (decoded.accountType === "Customer") {
-        window.location.replace("/customer/profile");
+        axios
+          .get("/api/customer/customer-profile-data")
+          .then(result => {
+            window.location.replace("/customer/dashboard");
+          })
+          .catch(err => {
+            window.location.replace("/customer/profile");
+          });
       } else if (decoded.accountType === "Partner") {
-        window.location.replace("/partner/profile");
+        axios
+          .get("/api/partner/partner-profile-data")
+          .then(result => {
+            window.location.replace("/partner/dashboard");
+          })
+          .catch(err => {
+            window.location.replace("/partner/profile");
+          });
       }
     })
     .catch(err =>
