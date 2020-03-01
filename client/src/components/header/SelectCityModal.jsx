@@ -28,8 +28,8 @@ function SelectCityModal() {
           Choose your preferred city
         </ModalHeader>
         <ModalBody>
-          <div>
-            <div className="select-city-ul">
+          <div className="container">
+            <div className="select-city-ul d-flex justify-content-center">
               <div className="city-name" onClick={selectCityAndDispatch}>
                 Jodhpur
               </div>

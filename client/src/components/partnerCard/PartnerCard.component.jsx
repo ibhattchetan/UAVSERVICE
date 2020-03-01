@@ -29,7 +29,11 @@ function PartnerCard(props) {
     return (
       <div className="partner-wrapper">
         <div className="row">
-          <img className="col-2 partner-image" src={profileImg} />
+          <img
+            className="col-2 partner-image"
+            src={profileImg}
+            alt="partner-card"
+          />
           <div className="col-4 partner-info">
             <h5>{partner.user.name}</h5>
             <div>{partner.services[0]} Expert</div>
@@ -66,7 +70,11 @@ function PartnerCard(props) {
             return (
               <div className="row reviews" key={item.id}>
                 <div className="col-1">
-                  <img className="review-image" src={profileImg} />
+                  <img
+                    className="review-image"
+                    src={profileImg}
+                    alt="partner-card"
+                  />
                 </div>
                 <div className="col-9">
                   <span>{item.user.name}</span> &nbsp;

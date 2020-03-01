@@ -17,7 +17,7 @@ function home_maintenance() {
       <div>
         <ul>
           <li>
-            <Link to="/home-cleaning" className="cat-link">
+            <Link to="/category/Cleaning" className="cat-link">
               <img
                 className="img-category"
                 src={homeCleaningSvg}
@@ -28,18 +28,7 @@ function home_maintenance() {
             </Link>
           </li>
           <li>
-            <Link to="/pest-control" className="cat-link">
-              <img
-                className="img-category"
-                src={pestControlSvg}
-                alt="pest-control"
-              />{" "}
-              <br />
-              <span className="category-text">PEST CONTROL</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/appliances" className="cat-link">
+            <Link to="/category/Appliances" className="cat-link">
               <img
                 className="img-category"
                 src={appliancesSvg}
@@ -50,14 +39,14 @@ function home_maintenance() {
             </Link>
           </li>
           <li>
-            <Link to="/plumbing" className="cat-link">
+            <Link to="/category/Plumbing" className="cat-link">
               <img className="img-category" src={plumbingSvg} alt="plumbing" />{" "}
               <br />
               <span className="category-text">PLUMBING</span>
             </Link>
           </li>
           <li>
-            <Link to="/electrical" className="cat-link">
+            <Link to="/category/Electrical" className="cat-link">
               <img
                 className="img-category"
                 src={electricalSvg}
@@ -68,7 +57,7 @@ function home_maintenance() {
             </Link>
           </li>
           <li>
-            <Link to="/carpentry" className="cat-link">
+            <Link to="/category/Carpentry" className="cat-link">
               <img
                 className="img-category"
                 src={carpentrySvg}
@@ -79,7 +68,7 @@ function home_maintenance() {
             </Link>
           </li>
           <li>
-            <Link to="/painting" className="cat-link">
+            <Link to="/category/Painting" className="cat-link">
               <img className="img-category" src={paintingSvg} alt="painting" />{" "}
               <br />
               <span className="category-text">PAINTING</span>

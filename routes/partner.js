@@ -21,7 +21,6 @@ router.post(
     }
 
     const partnerData = new Partner({
-      jobsCompleted: req.body.jobsCompleted,
       user_id: req.user.id,
       services: req.body.services,
       ratePerHour: req.body.ratePerHour,
@@ -46,12 +45,14 @@ router.post(
             })
             .catch(err => console.log(err));
         } else {
-          item.services = req.body.services.split(",");
-          item.ratePerHour = req.body.ratePerHour.split(",");
-          item.currentLocation = req.body.currentLocation.split(",");
+          item.services = req.body.services;
+          item.ratePerHour = req.body.ratePerHour;
+          item.currentLocation = req.body.currentLocation;
+          if (item.jobsCompleted == "") {
+            item.jobsCompleted == null;
+          }
           Partner.update(
             {
-              jobsCompleted: req.body.jobsCompleted,
               services: item.services,
               ratePerHour: item.ratePerHour,
               currentLocation: item.currentLocation,
@@ -177,5 +178,22 @@ router.get("/partnerdetails", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+
+router.get(
+  "/partner-profile-data",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const customerId = req.user.id;
+    Partner.findOne({ where: { user_id: customerId } })
+      .then(result => {
+        if (!result) {
+          res.status(400).json({ message: "No User for this is" });
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .catch(err => console.log(err));
+  }
+);
 
 module.exports = router;
