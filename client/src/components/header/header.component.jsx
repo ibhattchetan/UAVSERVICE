@@ -9,7 +9,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -84,32 +83,32 @@ const Header = props => {
       <div className="header-sub-menu">
         <ul>
           <li>
-            <Link className="headre-nav-link" to="/electrical">
+            <Link className="headre-nav-link" to="/category/Electrical">
               Electrical
             </Link>
           </li>
           <li>
-            <Link className="headre-nav-link" to="/plumbing">
+            <Link className="headre-nav-link" to="/category/Plumbing">
               Plumbing
             </Link>
           </li>
           <li>
-            <Link className="headre-nav-link" to="/painting">
+            <Link className="headre-nav-link" to="/category/Painting">
               Painting
             </Link>
           </li>
           <li>
-            <Link className="headre-nav-link" to="/home-cleaning">
-              Home Cleaning
+            <Link className="headre-nav-link" to="/category/Cleaning">
+              Home cleaning
             </Link>
           </li>
           <li>
-            <Link className="headre-nav-link" to="/appliances">
+            <Link className="headre-nav-link" to="/category/Appliances">
               Appliances
             </Link>
           </li>
           <li>
-            <Link className="headre-nav-link" to="/carpentry">
+            <Link className="headre-nav-link" to="/category/Carpentry">
               Carpentry
             </Link>
           </li>

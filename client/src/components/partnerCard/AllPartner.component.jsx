@@ -2,21 +2,36 @@ import React, { useState, useEffect } from "react";
 import "./allpartner.styles.scss";
 import profileImg from "../../assests/profile.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
+import convertDate from "../../utils/convertToDate";
+import Pagination from "../Pagination";
+import Nodata from "../Nodata";
 
-function AllPartner() {
+function AllPartner(props) {
   const [partners, setPartners] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [pagination, setPagination] = useState({});
+  const cat = props.match.params.name;
+  const loggedInUser = useSelector(state => state.auth);
+
+  let city = loggedInUser.currentLocation;
 
   useEffect(() => {
-    axios.get("/api/partner").then(result => setPartners(result.data));
-    axios.get("/api/review").then(rev => setReviews(rev.data));
-  }, []);
+    axios
+      .get(
+        "/api/partner/partnerdetails?services=" +
+          cat +
+          "&cityName=" +
+          city +
+          "&page=1"
+      )
+      .then(result => {
+        setPartners(result.data.result);
+        setPagination(result.data.pageInfo);
+      });
+  }, [cat]);
 
   if (!partners) {
-    return <div>Data Loading</div>;
-  }
-  if (!reviews) {
     return <div>Data Loading</div>;
   } else {
     return (
@@ -25,7 +40,11 @@ function AllPartner() {
           return (
             <div key={item.user_id}>
               <div className="row">
-                <img className="col-2 partner-image" src={profileImg} />
+                <img
+                  className="col-2 partner-image"
+                  src={profileImg}
+                  alt="partner-profile"
+                />
                 <div className="col-4 partner-info bdr-right">
                   <h5>{item.user.name}</h5>
                   <div>
@@ -51,34 +70,25 @@ function AllPartner() {
               </div>
 
               <div className="customer-review-all">
-                <div className="row reviews">
-                  <div className="col-1">
-                    <img className="review-image" src={profileImg} />
-                  </div>
-                  <div className="col-9">
-                    <span>Name</span> &nbsp;
-                    <span>4.6</span>
-                    <div>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      At voluptates possimus ab praesentium suscipit.
+                {item.reviews.map(rev => {
+                  return (
+                    <div key={rev.id} className="row reviews">
+                      <div className="col-1">
+                        <img
+                          className="review-image"
+                          src={profileImg}
+                          alt="partner-profile"
+                        />
+                      </div>
+                      <div className="col-9">
+                        <span>{rev.user.name}</span> &nbsp;
+                        <span>{rev.rating}</span>
+                        <div>{rev.comment}</div>
+                      </div>
+                      <div className="col-2">{convertDate(rev.createdAt)}</div>
                     </div>
-                  </div>
-                  <div className="col-2">14/02/2020</div>
-                </div>
-                <div className="row reviews">
-                  <div className="col-1">
-                    <img className="review-image" src={profileImg} />
-                  </div>
-                  <div className="col-9">
-                    <span>Name</span> &nbsp;
-                    <span>4.6</span>
-                    <div>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      At voluptates possimus ab praesentium suscipit.
-                    </div>
-                  </div>
-                  <div className="col-2">14/02/2020</div>
-                </div>
+                  );
+                })}
               </div>
 
               <div className="horizontl-line">
@@ -87,37 +97,17 @@ function AllPartner() {
             </div>
           );
         })}
-        <div className="partner-pagination">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                <Link class="page-link" to="/">
-                  First
-                </Link>
-              </li>
-              <li class="page-item">
-                <Link class="page-link" to="/">
-                  1
-                </Link>
-              </li>
-              <li class="page-item">
-                <Link class="page-link" to="/">
-                  2
-                </Link>
-              </li>
-              <li class="page-item">
-                <Link class="page-link" to="/">
-                  3
-                </Link>
-              </li>
-              <li class="page-item">
-                <Link class="page-link" to="/">
-                  Last
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        {pagination.lastPage === 0 ? (
+          <Nodata />
+        ) : (
+          <Pagination
+            firstPage={pagination.firstPage ? pagination.firstPage : null}
+            prevPage={pagination.prevPage ? pagination.prevPage : null}
+            currPage={pagination.currPage ? pagination.currPage : null}
+            nextPage={pagination.nextPage ? pagination.nextPage : null}
+            lastPage={pagination.lastPage ? pagination.lastPage : null}
+          />
+        )}
       </div>
     );
   }

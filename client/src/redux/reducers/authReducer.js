@@ -4,7 +4,7 @@ import { SET_CURRENT_USER, SET_CURRENT_CITY } from "../actions/types";
 const initialState = {
   isAuthenticated: false,
   user: {},
-  currentLocation: ""
+  currentLocation: "Bangalore"
 };
 
 const authReducer = (state = initialState, action) => {

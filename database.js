@@ -7,7 +7,8 @@ const ReviewModel = require("./model/Review");
 
 const sequelize = new Sequelize("servicium", "postgres", "dinesh", {
   host: "localhost",
-  dialect: "postgres"
+  dialect: "postgres",
+  logging: false
 });
 
 sequelize

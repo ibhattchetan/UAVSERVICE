@@ -76,23 +76,23 @@ const Footer = () => {
           Services
           <ul className="footer-list">
             <li>
-              <Link className="footer-nav-link" to="/electrical">
+              <Link className="footer-nav-link" to="/category/Electrical">
                 Electrical
               </Link>
             </li>
             <li>
-              <Link className="footer-nav-link" to="/carpentry">
+              <Link className="footer-nav-link" to="/category/Carpentry">
                 Carpentcy
               </Link>
             </li>
             <li>
-              <Link className="footer-nav-link" to="/plumbing">
+              <Link className="footer-nav-link" to="/category/Plumbing">
                 Plumbing
               </Link>
             </li>
             <li>
-              <Link className="footer-nav-link" to="/home-cleaning">
-                Cleaning
+              <Link className="footer-nav-link" to="/category/Cleaning">
+                Home cleaning
               </Link>
             </li>
           </ul>
