@@ -31,6 +31,24 @@ function AllPartner(props) {
       });
   }, [cat]);
 
+  const getPageData = event => {
+    console.log(event.currentTarget.textContent);
+    axios
+      .get(
+        "/api/partner/partnerdetails?services=" +
+          cat +
+          "&cityName=" +
+          city +
+          "&page=" +
+          event.currentTarget.textContent +
+          ""
+      )
+      .then(result => {
+        setPartners(result.data.result);
+        setPagination(result.data.pageInfo);
+      });
+  };
+
   if (!partners) {
     return <div>Data Loading</div>;
   } else {
@@ -68,28 +86,31 @@ function AllPartner(props) {
                   <div>Jobs Complited</div>
                 </div>
               </div>
-
-              <div className="customer-review-all">
-                {item.reviews.map(rev => {
-                  return (
-                    <div key={rev.id} className="row reviews">
-                      <div className="col-1">
-                        <img
-                          className="review-image"
-                          src={profileImg}
-                          alt="partner-profile"
-                        />
+              {item.reviews.length > 0 ? (
+                <div className="customer-review-all">
+                  {item.reviews.map(rev => {
+                    return (
+                      <div key={rev.id} className="row reviews">
+                        <div className="col-1">
+                          <img
+                            className="review-image"
+                            src={profileImg}
+                            alt="partner-profile"
+                          />
+                        </div>
+                        <div className="col-9">
+                          <span>{rev.user.name}</span> &nbsp;
+                          <span>{rev.rating}</span>
+                          <div>{rev.comment}</div>
+                        </div>
+                        <div className="col-2">
+                          {convertDate(rev.createdAt)}
+                        </div>
                       </div>
-                      <div className="col-9">
-                        <span>{rev.user.name}</span> &nbsp;
-                        <span>{rev.rating}</span>
-                        <div>{rev.comment}</div>
-                      </div>
-                      <div className="col-2">{convertDate(rev.createdAt)}</div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              ) : null}
 
               <div className="horizontl-line">
                 <hr />
@@ -100,13 +121,18 @@ function AllPartner(props) {
         {pagination.lastPage === 0 ? (
           <Nodata />
         ) : (
-          <Pagination
-            firstPage={pagination.firstPage ? pagination.firstPage : null}
-            prevPage={pagination.prevPage ? pagination.prevPage : null}
-            currPage={pagination.currPage ? pagination.currPage : null}
-            nextPage={pagination.nextPage ? pagination.nextPage : null}
-            lastPage={pagination.lastPage ? pagination.lastPage : null}
-          />
+          <>
+            {pagination.nextPage || pagination.prevPage ? (
+              <Pagination
+                clickFunc={getPageData}
+                firstPage={pagination.firstPage}
+                prevPage={pagination.prevPage}
+                currPage={pagination.currPage}
+                nextPage={pagination.nextPage}
+                lastPage={pagination.totalPages}
+              />
+            ) : null}
+          </>
         )}
       </div>
     );

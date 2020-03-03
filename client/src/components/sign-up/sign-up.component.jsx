@@ -9,8 +9,7 @@ import { withRouter } from "react-router-dom";
 import Background from "../../assests/Sign-up-bg.png";
 import { Link } from "react-router-dom";
 
-
-const SignUp = (props) => {
+const SignUp = props => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -25,7 +24,7 @@ const SignUp = (props) => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     // setUser({
     //   ...user, email: "", password: "", confirmPassword: "", accountType: "",
@@ -38,16 +37,23 @@ const SignUp = (props) => {
       password: user.password,
       confirmPassword: user.confirmPassword
     };
-    axios.post("/api/users/register", newUser)
-                      .then(res => console.log(res.data))
-                      .catch(err => setUser({ ...user, errors: err.response.data }));
-      setUser({
-        ...user, email: "", password: "", confirmPassword: "", accountType: "",
-        name: "", errors : {}
-      });
-      // console.log(props);
-      // props.history.push("/login");
-
+    axios
+      .post("/api/users/register", newUser)
+      .then(res => {
+        window.location.replace("/login");
+      })
+      .catch(err => setUser({ ...user, errors: err.response.data }));
+    setUser({
+      ...user,
+      email: "",
+      password: "",
+      confirmPassword: "",
+      accountType: "",
+      name: "",
+      errors: {}
+    });
+    // console.log(props);
+    // props.history.push("/login");
   };
 
   return (
@@ -58,22 +64,27 @@ const SignUp = (props) => {
       </div>
       <div className="sign-up">
         <h2 className="title">Join our community!</h2>
-        <span>Already have an account? <strong><Link to="/login">Login</Link></strong></span>
+        <span>
+          Already have an account?{" "}
+          <strong>
+            <Link to="/login">Login</Link>
+          </strong>
+        </span>
         <form onSubmit={handleSubmit} noValidate>
           {/* <div className="required-field">* required field</div> */}
-            <FormInput
-              handleChange={handleChange}
-              name="name"
-              className={classnames("form-input", {
-                "form-input-invalid": user.errors.name
-              })}
-              type="text"
-              value={user.name}
-              label="Name*"
-            />
-            {user.errors.name && (
-              <div className="isError"> {user.errors.name} </div>
-            )}
+          <FormInput
+            handleChange={handleChange}
+            name="name"
+            className={classnames("form-input", {
+              "form-input-invalid": user.errors.name
+            })}
+            type="text"
+            value={user.name}
+            label="Name*"
+          />
+          {user.errors.name && (
+            <div className="isError"> {user.errors.name} </div>
+          )}
 
           <FormInput
             handleChange={handleChange}
@@ -142,13 +153,16 @@ const SignUp = (props) => {
             {user.errors.accountType && (
               <div className="isError"> {user.errors.accountType} </div>
             )}
-          </div> 
+          </div>
 
           <div className="buttons">
             <CustomButton type="submit">Sign Up</CustomButton>
           </div>
         </form>
-        <span id="terms">By joining, you agree to our <strong>Terms</strong> and <strong>Privacy Policy</strong></span>
+        <span id="terms">
+          By joining, you agree to our <strong>Terms</strong> and{" "}
+          <strong>Privacy Policy</strong>
+        </span>
       </div>
     </div>
   );

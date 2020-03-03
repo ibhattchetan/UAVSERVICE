@@ -74,7 +74,7 @@ router.post(
 // @route   GET /api/customer
 // @desc    Get Customer belongsto user
 // @access  Public
-router.get("/", (req, res) => {
+router.get("/all", (req, res) => {
   Customer.belongsTo(User, { foreignKey: "user_id" });
   Customer.findAll({
     include: [

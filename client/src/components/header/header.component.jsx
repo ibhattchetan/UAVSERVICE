@@ -39,15 +39,32 @@ const Header = props => {
     }
   }, []);
 
+  let userType = "";
+  if (loggedInUser.isAuthenticated) {
+    if (loggedInUser.user.accountType === "Partner") {
+      userType = "partner";
+    }
+    if (loggedInUser.user.accountType === "Customer") {
+      userType = "customer";
+    }
+  }
+
   const authLinks = (
     <UncontrolledDropdown inNavbar>
       <DropdownToggle nav>
         <img className="profile-pic" src={profilePic} alt="user-priofile" />
       </DropdownToggle>
       <DropdownMenu right>
-        <DropdownItem>My Profile</DropdownItem>
-        <DropdownItem>My Orders</DropdownItem>
-        <DropdownItem>My Wallet</DropdownItem>
+        <DropdownItem>
+          <Link
+            className="dropdown-color"
+            to={"/dashboard/" + userType + "/home"}
+          >
+            My Profile
+          </Link>
+        </DropdownItem>
+        {/* <DropdownItem>My Orders</DropdownItem>
+        <DropdownItem>My Wallet</DropdownItem> */}
         <DropdownItem divider />
         <DropdownItem onClick={onLogoutUser}>Log Out</DropdownItem>
       </DropdownMenu>

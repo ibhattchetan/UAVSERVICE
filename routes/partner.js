@@ -99,19 +99,16 @@ router.get("/partner/:partnerId", (req, res) => {
 });
 
 router.get("/partnerdetails", (req, res) => {
-  var page = req.query.page - 1;
-  if (parseInt(page) <= -1) {
-    return res.status(400).json("Page No Should be positive no");
-  }
-  const offset = page * 10;
-  const limit = 10;
+  var page = Number(req.query.page);
+  const limit = 5;
+  const offset = limit * (page - 1);
   const queryData = {
     services: req.query.services,
     cityName: req.query.cityName
   };
   Partner.belongsTo(User, { foreignKey: "user_id" });
-  Partner.hasMany(Review, { foreignKey: "partner_id" });
-  Review.belongsTo(User, { foreignKey: "user_id" });
+  Review.belongsTo(User, { foreignKey: "partner_id" });
+  Partner.hasMany(Review, { foreignKey: "user_id" });
   Partner.findAndCountAll({
     limit,
     offset,
@@ -146,32 +143,26 @@ router.get("/partnerdetails", (req, res) => {
       var count = partner.count;
       var pageInfo = {
         firstPage: 1,
-        prevPage: page,
-        currPage: page + 1,
-        nextPage: page + 2,
-        lastPage: Math.ceil(count / 10)
+        prevPage: page - 1,
+        currPage: page,
+        nextPage: page + 1,
+        lastPage: Math.ceil(count / 5)
       };
-      if (page + 1 === 1) {
-        pageInfo = {
-          firstPage: 1,
-          currPage: page + 1,
-          nextPage: page + 2,
-          lastPage: Math.ceil(count / 10)
-        };
+      if (Math.ceil(count / 5) === pageInfo.firstPage) {
+        pageInfo.lastPage = null;
       }
-      if (page + 2 > Math.ceil(count / 10)) {
-        pageInfo = {
-          firstPage: 1,
-          currPage: page + 1,
-          lastPage: Math.ceil(count / 10)
-        };
+      if (pageInfo.firstPage === pageInfo.nextPage) {
+        pageInfo.nextPage = null;
       }
-      if (page === 1) {
-        return res.status(400).json({
-          pageInfo: {
-            message: `Page no should be between 1-${Math.ceil(count / 10)}`
-          }
-        });
+      if (pageInfo.nextPage > Math.ceil(count / 5)) {
+        pageInfo.nextPage = null;
+      }
+      if (Math.ceil(count / 5) === 1) {
+        pageInfo.nextPage = null;
+        pageInfo.prevPage = null;
+      }
+      if (pageInfo.currPage === 1) {
+        pageInfo.prevPage = null;
       }
       var result = partner.rows;
       res.json({ pageInfo, result });
