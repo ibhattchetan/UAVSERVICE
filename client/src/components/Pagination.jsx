@@ -1,53 +1,49 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 class Pagination extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
-      <div>
-        {this.props.firstPage === 1 &&
-        this.props.currPage === 1 &&
-        this.props.lastPage === 1 ? null : (
-          <div className="partner-pagination">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                {this.props.firstPage ? (
-                  <li className="page-item">
-                    <Link className="page-link" to="/">
-                      1
-                    </Link>
-                  </li>
-                ) : null}
-                {this.props.prevPage ? (
-                  <li className="page-item">
-                    <Link className="page-link" to="/">
-                      {this.props.prevPage}
-                    </Link>
-                  </li>
-                ) : null}
-                <li className="page-item active">
-                  <Link className="page-link " to="/">
-                    {this.props.currPage}
-                  </Link>
-                </li>
-                {this.props.nextPage ? (
-                  <li className="page-item">
-                    <Link className="page-link" to="/">
-                      {this.props.nextPage}
-                    </Link>
-                  </li>
-                ) : null}
-                <li className="page-item">
-                  <Link className="page-link" to="/">
-                    {this.props.lastPage}
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        )}
-      </div>
+      <ul className="pagination justify-content-center pb-4 ">
+        {this.props.firstPage ? (
+          <li className="page-item">
+            <span className="page-link" onClick={this.props.clickFunc}>
+              {this.props.firstPage}
+            </span>
+          </li>
+        ) : null}
+        {this.props.prevPage ? (
+          <li className="page-item">
+            <span className="page-link" onClick={this.props.clickFunc}>
+              {this.props.prevPage}
+            </span>
+          </li>
+        ) : null}
+        <li className="page-item active" aria-current="page">
+          <span className="page-link" onClick={this.props.clickFunc}>
+            {this.props.currPage}
+          </span>
+        </li>
+        {this.props.nextPage ? (
+          <li className="page-item">
+            <span className="page-link" onClick={this.props.clickFunc}>
+              {this.props.nextPage}
+            </span>
+          </li>
+        ) : null}
+
+        {this.props.lastPage ? (
+          <li className="page-item">
+            <span className="page-link" onClick={this.props.clickFunc}>
+              {this.props.lastPage}
+            </span>
+          </li>
+        ) : null}
+      </ul>
     );
   }
 }
-
 export default Pagination;

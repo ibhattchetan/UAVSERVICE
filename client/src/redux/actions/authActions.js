@@ -42,7 +42,7 @@ export const loginUser = userData => dispatch => {
         axios
           .get("/api/customer/customer-profile-data")
           .then(result => {
-            window.location.replace("/customer/dashboard");
+            window.location.replace("/dashboard/customer/home");
           })
           .catch(err => {
             window.location.replace("/customer/profile");
@@ -51,7 +51,7 @@ export const loginUser = userData => dispatch => {
         axios
           .get("/api/partner/partner-profile-data")
           .then(result => {
-            window.location.replace("/partner/dashboard");
+            window.location.replace("/dashboard/partner/home");
           })
           .catch(err => {
             window.location.replace("/partner/profile");

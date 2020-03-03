@@ -29,12 +29,14 @@ function PartnerCard(props) {
     return (
       <div className="partner-wrapper">
         <div className="row">
-          <img
-            className="col-2 partner-image"
-            src={profileImg}
-            alt="partner-card"
-          />
-          <div className="col-4 partner-info">
+          <div className="col-3">
+            <img
+              className="partner-image"
+              src={profileImg}
+              alt="partner-card"
+            />
+          </div>
+          <div className="col-3 partner-info">
             <h5>{partner.user.name}</h5>
             <div>{partner.services[0]} Expert</div>
             <div className="ratings">
@@ -61,31 +63,35 @@ function PartnerCard(props) {
             <button className="btn btn-primary">Book Now</button>
           </div>
         </div>
-        <div className="horizontl-line">
-          <hr />
-        </div>
-        <div className="customer-review">
-          <strong>Customer Reviews</strong>
-          {reviews.map(item => {
-            return (
-              <div className="row reviews" key={item.id}>
-                <div className="col-1">
-                  <img
-                    className="review-image"
-                    src={profileImg}
-                    alt="partner-card"
-                  />
-                </div>
-                <div className="col-9">
-                  <span>{item.user.name}</span> &nbsp;
-                  <span>{item.rating}</span>
-                  <div>{item.comment}</div>
-                </div>
-                <div className="col-2">{convertDate(item.createdAt)}</div>
-              </div>
-            );
-          })}
-        </div>
+        {reviews.length > 0 ? (
+          <>
+            <div className="horizontl-line">
+              <hr />
+            </div>
+            <div className="customer-review">
+              <strong>Customer Reviews</strong>
+              {reviews.map(item => {
+                return (
+                  <div className="row reviews" key={item.id}>
+                    <div className="col-1">
+                      <img
+                        className="review-image"
+                        src={profileImg}
+                        alt="partner-card"
+                      />
+                    </div>
+                    <div className="col-9">
+                      <span>{item.user.name}</span> &nbsp;
+                      <span>{item.rating}</span>
+                      <div>{item.comment}</div>
+                    </div>
+                    <div className="col-2">{convertDate(item.createdAt)}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        ) : null}
       </div>
     );
   }

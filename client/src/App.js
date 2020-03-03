@@ -54,17 +54,9 @@ function App() {
               component={PartnerProfileUpdate}
             />
             {/* User Dashboard page */}
-            <Route
-              exact
-              path="/customer/dashboard"
-              component={CustomerDashboard}
-            />
+            <Route path="/dashboard/customer" component={CustomerDashboard} />
             {/* Partner Dashboard page */}
-            <Route
-              exact
-              path="/partner/dashboard"
-              component={PartnerDashboard}
-            />
+            <Route path="/dashboard/partner" component={PartnerDashboard} />
             <Route
               exact
               path="/partner/:partnerId"
