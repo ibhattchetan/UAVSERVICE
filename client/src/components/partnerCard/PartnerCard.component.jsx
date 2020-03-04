@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import "./partnerCard.styles.scss";
 import axios from "axios";
-import profileImg from "../../assests/profile.png";
 
+import profileImg from "../../assests/profile.png";
 import convertDate from "../../utils/convertToDate";
+import BookNow from "../Bookings/BookNow";
+import { bookPartner } from "../../redux/actions/bookingActions";
 
 function PartnerCard(props) {
   const [partner, setPartner] = useState();
@@ -19,6 +22,18 @@ function PartnerCard(props) {
       .then(result => setReviews(result.data))
       .catch(err => console.log(err));
   }, [partnerID]);
+
+  const dispatch = useDispatch();
+
+  const handleBookNow = () => {
+    const partnerData = {
+      partnerName: partner.user.name,
+      partnerId: partner.user_id,
+      phoneNumbre: partner.phoneNumber
+    };
+    dispatch(bookPartner(partnerData));
+    props.history.push("/booking");
+  };
 
   if (!partner) {
     return <div>Loading User Data...</div>;
@@ -59,9 +74,7 @@ function PartnerCard(props) {
               return <span key={index}>{item} </span>;
             })}
           </div>
-          <div className="col-2 book-now-btn">
-            <button className="btn btn-primary">Book Now</button>
-          </div>
+          <BookNow clickFunc={handleBookNow} />
         </div>
         {reviews.length > 0 ? (
           <>

@@ -53,7 +53,7 @@ const PartnerProfileUpdate = props => {
       .post("/api/partner/update-partner", updateProfile)
       .then(res => {
         setUser({ ...user, errors: {} });
-        window.location.replace("/partner/dashboard");
+        window.location.replace("/dashboard/partner/home");
       })
       .catch(err => {
         setUser({ ...user, errors: err.response.data });

@@ -19,8 +19,6 @@
   left: 3%;
 }
 
-
-
 .sign-up {
   width: 420px;
   align-self: center;
@@ -39,12 +37,15 @@
     color: grey;
 
     strong {
-      color: black!important;
+      color: black !important;
     }
   }
 
   .form-input-invalid {
     border: 1px solid red !important;
+  }
+  .radio-btn label {
+    padding-left: 100px;
   }
 
   // .form-name {
@@ -68,3 +69,9 @@
 //     margin-left: 10px;
 //   }
 // }
+
+.not-available {
+  color: red;
+  font-size: 12px;
+  padding-bottom: 10px;
+}

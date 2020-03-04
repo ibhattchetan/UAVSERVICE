@@ -19,6 +19,7 @@ import CustomerDashboard from "./pages/customer/dashboard/dashboard.component";
 import PartnerDashboard from "./pages/partner/dashboard/dashboard.component";
 import PartnerDisplay from "./components/partnerCard/PartnerCard.component";
 import AllPartner from "./components/partnerCard/AllPartner.component";
+import BookingComponent from "./components/Bookings/BookingComponent";
 
 // check for token
 if (localStorage.jwtToken) {
@@ -53,6 +54,8 @@ function App() {
               path="/partner/profile"
               component={PartnerProfileUpdate}
             />
+            {/* Booking Route */}
+            <Route exact path="/booking" component={BookingComponent} />
             {/* User Dashboard page */}
             <Route path="/dashboard/customer" component={CustomerDashboard} />
             {/* Partner Dashboard page */}
