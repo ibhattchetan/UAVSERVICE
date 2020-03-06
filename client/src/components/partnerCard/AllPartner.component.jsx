@@ -15,6 +15,7 @@ function AllPartner(props) {
   const loggedInUser = useSelector(state => state.auth);
 
   let city = loggedInUser.currentLocation;
+  console.log(city);
 
   useEffect(() => {
     axios
@@ -66,7 +67,8 @@ function AllPartner(props) {
                 <div className="col-4 partner-info bdr-right">
                   <h5>{item.user.name}</h5>
                   <div>
-                    {item.services[0]} Expert , {item.currentLocation[0]}
+                    {item.services.filter(item => item === cat)} Expert ,{" "}
+                    {item.currentLocation.filter(item => item === city)}
                   </div>
                   <div className="ratings">
                     <Link

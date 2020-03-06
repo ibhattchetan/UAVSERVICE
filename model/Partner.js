@@ -42,7 +42,7 @@ module.exports = (sequelize, Sequelize) => {
           const checkArrayData = field => {
             if (Array.isArray(field) === false) {
               field = field.split(",");
-              console.log(field);
+              console.log("Before Crate Hook : ", field);
             }
             return field;
           };

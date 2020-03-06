@@ -91,6 +91,7 @@ function BookingComponent() {
         alert(
           "We shared booking detail with partner he will call u soon for confirmation"
         );
+        window.location.replace("/");
       })
       .catch(err =>
         setBookingData({

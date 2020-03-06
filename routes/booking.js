@@ -1,47 +1,11 @@
 const { Op } = require("sequelize");
 const router = require("express").Router();
-const { Booking } = require("../database");
+const { Booking, Partner, User } = require("../database");
 const passport = require("passport");
 const bookingInput = require("../validations/booking");
 const moment = require("moment");
 const { accountSid, authToken } = require("../config/keys");
 const client = require("twilio")(accountSid, authToken);
-
-// @route   POST /api/review
-// @desc    Post review
-// @access  Private
-
-router.post(
-  "/book-partner",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const errors = {};
-
-    const bookingData = new Booking({
-      bookingUser: req.user.id,
-      bookedPartner: req.body.bookedPartner,
-      address: req.body.address,
-      bookedForService: req.body.bookedForService,
-      zipCode: req.body.zipCode,
-      phoneNumber: req.body.phoneNumber,
-      selectedForDateFrom: req.body.selectedForDateFrom,
-      selectedForDateFrom: req.body.selectedForDateFrom,
-      selectedForDateTo: req.body.selectedForDateTo,
-      addressType: req.body.addressType
-    });
-
-    bookingData
-      .save()
-      .then(result => {
-        if (!result) {
-          res.status(400).json(errors);
-        } else {
-          res.status(200).json(result);
-        }
-      })
-      .catch(err => console.log(err));
-  }
-);
 
 router.post(
   "/availability",
@@ -132,6 +96,32 @@ router.post(
             notAvailable: "Partner Not Available for this time period"
           });
         }
+      })
+      .catch(err => console.log(err));
+  }
+);
+
+router.get(
+  "/partner-bookings/:partnerId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Booking.findAll({ where: { bookedPartner: req.params.partnerId } })
+      .then(result => {
+        res.status(200).json(result);
+      })
+      .catch(err => console.log(err));
+  }
+);
+
+router.get(
+  "/customer-bookings/:bookingUser",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Booking.findAll({
+      where: { bookingUser: req.params.bookingUser }
+    })
+      .then(result => {
+        res.status(200).json(result);
       })
       .catch(err => console.log(err));
   }
