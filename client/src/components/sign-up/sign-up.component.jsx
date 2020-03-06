@@ -129,7 +129,7 @@ const SignUp = props => {
             <div className="isError"> {user.errors.confirmPassword} </div>
           )}
           <p className="form-input-radio">Please select Account Type:*</p>
-          <div className="radio-button">
+          <div className="radio-button  radio-btn">
             <FormInput
               type="radio"
               name="accountType"
